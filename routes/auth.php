@@ -11,7 +11,20 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\ClientController;
+
 Route::middleware('guest')->group(function () {
+    /* start client auth routes */
+    Route::get('register/client', [ClientController::class, 'showRegisterPage'])
+                ->name('showRegisterPage');
+    Route::post('register/client', [ClientController::class, 'store'])
+            ->name('store');
+    Route::get('login/client', [ClientController::class, 'showLoginPage'])
+            ->name('showLoginPage');
+    Route::post('login/client', [ClientController::class, 'login'])
+            ->name('loginClient');
+    /* end client auth routes */
+    
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 

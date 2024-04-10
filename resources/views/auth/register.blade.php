@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ request()->segment(2)=='client' ? route('registerClient') : '/register' }}">
         @csrf
 
         <!-- Name -->

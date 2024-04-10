@@ -9,7 +9,7 @@ class ClientController extends Controller
 {
     public function showRegisterPage()
     {
-        //register page
+        return view('auth.register');
     }
     
     public function store()
@@ -19,7 +19,7 @@ class ClientController extends Controller
 
     public function showLoginPage()
     {
-        //login page
+        return view('auth.login');
     }
 
     public function login()

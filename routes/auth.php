@@ -16,7 +16,7 @@ use App\Http\Controllers\Auth\ClientController;
 Route::middleware('guest')->group(function () {
     /* start client auth routes */
     Route::get('register/client', [ClientController::class, 'showRegisterPage'])
-                ->name('showRegisterPage');
+                ->name('registerClient');
     Route::post('register/client', [ClientController::class, 'store'])
             ->name('store');
     Route::get('login/client', [ClientController::class, 'showLoginPage'])

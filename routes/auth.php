@@ -13,19 +13,23 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\ClientController;
 
-Route::middleware('guest')->group(function () {
-    /* start client auth routes */
-    Route::get('register/client', [ClientController::class, 'showRegisterPage'])
-                ->name('registerClient');
-    Route::post('register/client', [ClientController::class, 'store'])
-            ->name('store');
-    Route::get('login/client', [ClientController::class, 'showLoginPage'])
-            ->name('showLoginPage');
-    Route::post('login/client', [ClientController::class, 'login'])
-            ->name('loginClient');
-    Route::post('logout/client', [ClientController::class, 'logout'])
-            ->name('logoutClient');
-    /* end client auth routes */
+Route::middleware('guest:client')->group(function () {
+
+        /* start client auth routes */
+        Route::get('register/client', [ClientController::class, 'showRegisterPage'])
+                    ->name('registerClient');
+        Route::post('register/client', [ClientController::class, 'store'])
+                ->name('store');
+        Route::get('login/client', [ClientController::class, 'showLoginPage'])
+                ->name('showLoginPage');
+        Route::post('login/client', [ClientController::class, 'login'])
+                ->name('loginClient'); 
+        /* end client auth routes */
+});
+Route::post('logout/client', [ClientController::class, 'logout'])
+        ->name('logoutClient');
+
+Route::middleware('guest:web')->group(function () { 
     
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');

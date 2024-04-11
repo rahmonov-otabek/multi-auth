@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Client;
+
 class ClientController extends Controller
 {
     public function showRegisterPage()
@@ -12,9 +14,23 @@ class ClientController extends Controller
         return view('auth.register');
     }
     
-    public function store()
+    public function store(Request $request)
     {
-        //register scripts
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|unique:clients',
+            'password'=>'required|confirmed|min:6'            
+        ]);
+        // dd($request->all());
+        $client = Client::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password),
+        ]);
+
+        auth()->guard('client')->login($client);
+
+        return redirect()->route('client.dashboard');
     }
 
     public function showLoginPage()

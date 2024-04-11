@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 
 use App\Models\Client;
@@ -38,9 +39,20 @@ class ClientController extends Controller
         return view('auth.login');
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        //login scripts 
+        $request->validate([ 
+            'email'=>'required',
+            'password'=>'required'            
+        ]);
+
+        if (! auth()->guard('client')->attempt($request->only('email', 'password'), $request->boolean('remember'))) {  
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+
+        return redirect()->route('client.dashboard');
     }
 
 }

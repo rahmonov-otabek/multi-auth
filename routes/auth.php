@@ -23,6 +23,8 @@ Route::middleware('guest')->group(function () {
             ->name('showLoginPage');
     Route::post('login/client', [ClientController::class, 'login'])
             ->name('loginClient');
+    Route::post('logout/client', [ClientController::class, 'logout'])
+            ->name('logoutClient');
     /* end client auth routes */
     
     Route::get('register', [RegisteredUserController::class, 'create'])

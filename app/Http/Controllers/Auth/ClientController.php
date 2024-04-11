@@ -55,4 +55,10 @@ class ClientController extends Controller
         return redirect()->route('client.dashboard');
     }
 
+    public function logout()
+    {
+        auth()->guard('client')->logout(); 
+        return redirect()->route('loginClient');
+    }
+
 }
